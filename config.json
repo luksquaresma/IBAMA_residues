@@ -1,0 +1,38 @@
+{
+    "raw_source": [
+        {
+            "name": "gerador",
+            "category": "residuo_solido",
+            "url": "https://dadosabertos.ibama.gov.br/dados/RAPP/residuoSolidosGerador/relatorio.json"
+        },
+        {
+            "name": "transportador",
+            "category": "residuo_solido",
+            "url": "https://dadosabertos.ibama.gov.br/dados/RAPP/residuoSolidosTransportador/relatorio.json"
+        },
+        {
+            "name": "armazenador",
+            "category": "residuo_solido",
+            "url": "https://dadosabertos.ibama.gov.br/dados/RAPP/residuoSolidosArmazenador/relatorio.json"
+        },
+        {
+            "name": "destinador",
+            "category": "residuo_solido",
+            "url": "https://dadosabertos.ibama.gov.br/dados/RAPP/residuoSolidosDestinador/relatorio.json"
+        }
+    ],
+    "terminal_log": false,
+    "max_proc": 4,
+    "max_get_trys": 5,
+    "local": {
+        "path_log": "./logs/",
+        "path_result_raw": "./results_raw/",
+        "path_result_compressed": "./results_compressed/"
+    },
+    "AWS": {
+        "send_raw_to_s3": false,
+        "send_compressed_to_s3": false,
+        "destination_raw": "s3://jm2vtech/pos/residuos_solidos_ibama/results_raw/",
+        "destinaiton_compressed": "s3://jm2vtech/pos/residuos_solidos_ibama/results_compressed/"
+    }
+}

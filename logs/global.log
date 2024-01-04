@@ -1,0 +1,122 @@
+2023-12-28 19:40:42    STARTING ALL EXTRACTION PROCESSES
+2023-12-28 19:40:43    JOB armazenador, CATEGORY residuo_solido - Finished job.
+2023-12-28 19:40:44    JOB transportador, CATEGORY residuo_solido - Finished job.
+2023-12-28 19:40:45    JOB destinador, CATEGORY residuo_solido - Finished job.
+2023-12-28 19:43:57    JOB gerador, CATEGORY residuo_solido - Finished job.
+2023-12-28 19:43:58    FINISHED ALL EXTRACTION PROCESSES
+2023-12-29 01:13:51    STARTING ALL EXTRACTION PROCESSES
+2023-12-29 01:13:52    JOB armazenador, CATEGORY residuo_solido - Finished job.
+2023-12-29 01:13:52    JOB transportador, CATEGORY residuo_solido - Finished job.
+2023-12-29 01:13:54    JOB destinador, CATEGORY residuo_solido - Finished job.
+2023-12-29 01:15:28    JOB gerador, CATEGORY residuo_solido - Finished job.
+2023-12-29 01:15:29    FINISHED ALL EXTRACTION PROCESSES
+2024-01-01 09:04:04    JOB gerador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:04:04    JOB transportador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:04:04    JOB armazenador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:04:05    JOB destinador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:04:05    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:04:06    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:06    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:07    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:08    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:13    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:18    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:23    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:28    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:29    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:29    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:04:30    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:05:26    JOB gerador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:05:26    JOB transportador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:05:26    JOB armazenador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:05:27    JOB destinador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:05:27    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:08:34    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:09:21    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:14:43    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:15:06    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:16:00    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:16:22    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:16:28    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:16:28    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:16:29    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:16:30    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:16:30    FINISHED UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:18:10    STARTING ALL EXTRACTION PROCESSES
+2024-01-01 09:18:11    JOB armazenador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:18:11    JOB transportador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:18:13    JOB destinador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:18:59    JOB gerador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:18:59    FINISHED ALL EXTRACTION PROCESSES
+2024-01-01 09:19:13    JOB gerador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:19:13    JOB transportador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:19:13    JOB armazenador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:19:14    JOB destinador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:19:14    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_raw/
+2024-01-01 09:23:34    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:23:40    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:23:43    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:23:59    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:23:59    FINISHED UPLOAD PROCESSES FOR ./results_raw/
+2024-01-01 09:23:59    STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:24:04    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:24:05    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:24:05    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:24:06    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:24:06    FINISHED UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:29:48    
+STARTING ALL EXTRACTION PROCESSES
+2024-01-01 09:29:49    JOB armazenador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:29:50    JOB transportador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:29:51    JOB destinador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:30:38    JOB gerador, CATEGORY residuo_solido - Finished job.
+2024-01-01 09:30:38    FINISHED ALL EXTRACTION PROCESSES
+
+2024-01-01 09:30:38    
+STARTING COMPRESSION PROCESSES
+2024-01-01 09:30:51    JOB gerador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:30:51    JOB transportador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:30:52    JOB armazenador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:30:52    JOB destinador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 09:30:52    FINISHED COMPRESSION PROCESSES
+
+2024-01-01 09:30:52    
+STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 09:30:57    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:30:58    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:30:59    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:30:59    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 09:30:59    FINISHED UPLOAD PROCESSES FOR ./results_compressed/
+
+2024-01-01 10:55:43    
+STARTING ALL EXTRACTION PROCESSES
+2024-01-01 10:55:44    JOB armazenador, CATEGORY residuo_solido - Finished job.
+2024-01-01 10:55:44    JOB transportador, CATEGORY residuo_solido - Finished job.
+2024-01-01 10:55:46    JOB destinador, CATEGORY residuo_solido - Finished job.
+2024-01-01 10:56:32    JOB gerador, CATEGORY residuo_solido - Finished job.
+2024-01-01 10:56:33    FINISHED ALL EXTRACTION PROCESSES
+
+2024-01-01 10:56:33    
+STARTING COMPRESSION PROCESSES
+2024-01-01 10:56:47    JOB gerador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 10:56:47    JOB transportador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 10:56:47    JOB armazenador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 10:56:48    JOB destinador, CATEGORY residuo_solido - Finished file compression.
+2024-01-01 10:56:48    FINISHED COMPRESSION PROCESSES
+
+2024-01-01 10:56:48    
+STARTING AWS S3 UPLOAD PROCESSES FOR ./results_raw/
+2024-01-01 11:01:40    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:01:46    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:01:49    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:07    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:07    FINISHED UPLOAD PROCESSES FOR ./results_raw/
+
+2024-01-01 11:02:07    
+STARTING AWS S3 UPLOAD PROCESSES FOR ./results_compressed/
+2024-01-01 11:02:14    JOB gerador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:14    JOB transportador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:15    JOB armazenador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:16    JOB destinador, CATEGORY residuo_solido - Finished sending to S3.
+2024-01-01 11:02:16    FINISHED UPLOAD PROCESSES FOR ./results_compressed/
+

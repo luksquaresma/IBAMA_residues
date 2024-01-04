@@ -1,0 +1,8 @@
+test.csv
+
+*results*
+*package*
+*.zip
+*.sql
+
+**__pycache__**
