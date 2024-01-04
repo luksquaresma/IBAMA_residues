@@ -1,0 +1,40 @@
+{
+  "name" : "IBAMA_pipeline_gerador",
+  "description" : "",
+  "role" : "arn:aws:iam::280755897748:role/ETL_ELT",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://jm2vtech/pos/residuos_solidos_ibama/pipeline/glue/IBAMA_pipeline_gerador.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://jm2vtech/pos/residuos_solidos_ibama/pipeline/glue/spark_ui/",
+    "--enable-job-insights" : "true",
+    "--enable-observability-metrics" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://jm2vtech/pos/residuos_solidos_ibama/pipeline/glue/tmp/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 2,
+  "timeout" : 120,
+  "maxCapacity" : 2.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 2,
+  "workerType" : "G.1X",
+  "executionClass" : "FLEX",
+  "codeGenConfigurationNodes" : "{\"node-1704400605057\":{\"Route\":{\"GroupFiltersList\":[{\"Filters\":[],\"GroupName\":\"default_group\",\"LogicalOperator\":\"AND\"},{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"Litro\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"classificacaoresiduo\"]}]}],\"GroupName\":\"Perigoso\",\"LogicalOperator\":\"AND\"}],\"Inputs\":[\"node-1704400498604\"],\"Name\":\"Conditional Router\"}},\"node-1704399625032\":{\"Route\":{\"GroupFiltersList\":[{\"Filters\":[],\"GroupName\":\"default_group\",\"LogicalOperator\":\"AND\"},{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"Perigoso\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"classificacaoresiduo\"]}]}],\"GroupName\":\"perigoso\",\"LogicalOperator\":\"AND\"}],\"Inputs\":[\"node-1704398798564\"],\"Name\":\"Conditional Router\"}},\"node-1704400605195\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704400605057\"],\"Name\":\"Perigoso\"}},\"node-1704373060407\":{\"S3ParquetSource\":{\"AdditionalOptions\":{\"EnableSamplePath\":false,\"SamplePath\":\"s3://jm2vtech/pos/residuos_solidos_ibama/results_compressed/gerador_residuo_solido.parquet\"},\"Exclusions\":[],\"Name\":\"Gerador\",\"OutputSchemas\":[{\"Columns\":[{\"Name\":\"cnpjgerador\",\"Type\":\"string\"},{\"Name\":\"estado\",\"Type\":\"string\"},{\"Name\":\"detalhe\",\"Type\":\"string\"},{\"Name\":\"situacaocadastral\",\"Type\":\"string\"},{\"Name\":\"municipio\",\"Type\":\"string\"},{\"Name\":\"codigodetalhe\",\"Type\":\"bigint\"},{\"Name\":\"anogeracao\",\"Type\":\"bigint\"},{\"Name\":\"codigocategoria\",\"Type\":\"bigint\"},{\"Name\":\"unidade\",\"Type\":\"string\"},{\"Name\":\"classificacaoresiduo\",\"Type\":\"string\"},{\"Name\":\"quantidadegerada\",\"Type\":\"string\"},{\"Name\":\"tiporesiduo\",\"Type\":\"string\"},{\"Name\":\"categoriaatividade\",\"Type\":\"string\"},{\"Name\":\"razaosocialgerador\",\"Type\":\"string\"},{\"Name\":\"codresiduo\",\"Type\":\"bigint\"},{\"Name\":\"__index_level_0__\",\"Type\":\"bigint\"}]}],\"Paths\":[\"s3://jm2vtech/pos/residuos_solidos_ibama/results_compressed/gerador_residuo_solido.parquet\"],\"Recurse\":true}},\"node-1704399625137\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704399625032\"],\"Name\":\"default_group\"}},\"node-1704400498604\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704398798425\"],\"Name\":\"Litro\"}},\"node-1704398619883\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704398619793\"],\"Name\":\"perigoso\"}},\"node-1704399625139\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704399625032\"],\"Name\":\"perigoso\"}},\"node-1704398619793\":{\"Route\":{\"GroupFiltersList\":[{\"Filters\":[],\"GroupName\":\"default_group\",\"LogicalOperator\":\"AND\"},{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"Perigoso\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"classificacaoresiduo\"]}]}],\"GroupName\":\"perigoso\",\"LogicalOperator\":\"AND\"}],\"Inputs\":[\"node-1704398798566\"],\"Name\":\"Conditional Router\"}},\"node-1704398619880\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704398619793\"],\"Name\":\"default_group\"}},\"node-1704397211095\":{\"ApplyMapping\":{\"Inputs\":[\"node-1704373060407\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"cnpjgerador\"],\"FromType\":\"string\",\"ToKey\":\"cnpjgerador\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"estado\"],\"FromType\":\"string\",\"ToKey\":\"estado\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"detalhe\"],\"FromType\":\"string\",\"ToKey\":\"detalhe\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"situacaocadastral\"],\"FromType\":\"string\",\"ToKey\":\"situacaocadastral\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"municipio\"],\"FromType\":\"string\",\"ToKey\":\"municipio\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"codigodetalhe\"],\"FromType\":\"bigint\",\"ToKey\":\"codigodetalhe\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"anogeracao\"],\"FromType\":\"bigint\",\"ToKey\":\"anogeracao\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"codigocategoria\"],\"FromType\":\"bigint\",\"ToKey\":\"codigocategoria\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"unidade\"],\"FromType\":\"string\",\"ToKey\":\"unidade\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"classificacaoresiduo\"],\"FromType\":\"string\",\"ToKey\":\"classificacaoresiduo\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"quantidadegerada\"],\"FromType\":\"string\",\"ToKey\":\"quantidadegerada\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"tiporesiduo\"],\"FromType\":\"string\",\"ToKey\":\"tiporesiduo\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"categoriaatividade\"],\"FromType\":\"string\",\"ToKey\":\"categoriaatividade\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"razaosocialgerador\"],\"FromType\":\"string\",\"ToKey\":\"razaosocialgerador\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"codresiduo\"],\"FromType\":\"bigint\",\"ToKey\":\"codresiduo\",\"ToType\":\"long\"},{\"Dropped\":false,\"FromPath\":[\"__index_level_0__\"],\"FromType\":\"bigint\",\"ToKey\":\"__index_level_0__\",\"ToType\":\"long\"}],\"Name\":\"Change Schema\"}},\"node-1704398798564\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704398798425\"],\"Name\":\"default_group\"}},\"node-1704400605190\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704400605057\"],\"Name\":\"default_group\"}},\"node-1704398798425\":{\"Route\":{\"GroupFiltersList\":[{\"Filters\":[],\"GroupName\":\"default_group\",\"LogicalOperator\":\"AND\"},{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"kilogramas\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"unidade\"]}]}],\"GroupName\":\"kilogramas\",\"LogicalOperator\":\"AND\"},{\"Filters\":[{\"Negated\":false,\"Operation\":\"REGEX\",\"Values\":[{\"Type\":\"CONSTANT\",\"Value\":[\"Litro\"]},{\"Type\":\"COLUMNEXTRACTED\",\"Value\":[\"unidade\"]}]}],\"GroupName\":\"Litro\",\"LogicalOperator\":\"AND\"}],\"Inputs\":[\"node-1704397211095\"],\"Name\":\"Conditional Router\"}},\"node-1704398798566\":{\"SelectFromCollection\":{\"Index\":0,\"Inputs\":[\"node-1704398798425\"],\"Name\":\"kilogramas\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "IBAMA_residues",
+    "branch" : "main",
+    "folder" : "AWS_GLUE"
+  }
+}
