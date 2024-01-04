@@ -1,4 +1,5 @@
 import datetime, json, os
+import pandas as pd
 
 def log(msg:str, log_path:str, log_file:bool=True, log_terminal:bool=False):
     if log_terminal:
@@ -16,3 +17,8 @@ def prep_dir(dir_list):
 def read_raw_json(path):
     with open(path) as file:
         return json.load(file)["data"]
+    
+def get_dir_from_file_path(path):
+    return path.removesuffix(path.split("/")[-1])
+
+def fix_df_num(df): return df.map(lambda x: pd.to_numeric(x, errors='ignore'))

@@ -1,4 +1,16 @@
 {
+    "terminal_log_macro": true,
+    "terminal_log_micro": false,
+    "steps_to_perform": {
+        "extraction": false,
+        "compression": true,
+        "send_raw_to_s3": true,
+        "send_compressed_to_s3": true
+    },
+    "stop_if_error": true,
+    "max_proc": 8,
+    "max_df_size_magnitude": 5,
+    "max_get_trys": 5,
     "raw_source": [
         {
             "name": "gerador",
@@ -21,17 +33,12 @@
             "url": "https://dadosabertos.ibama.gov.br/dados/RAPP/residuoSolidosDestinador/relatorio.json"
         }
     ],
-    "terminal_log": false,
-    "max_proc": 4,
-    "max_get_trys": 5,
     "local": {
-        "path_log": "./logs/",
+        "path_log": "./logs/global.log",
         "path_result_raw": "./results_raw/",
         "path_result_compressed": "./results_compressed/"
     },
     "AWS": {
-        "send_raw_to_s3": false,
-        "send_compressed_to_s3": false,
         "destination_raw": "s3://jm2vtech/pos/residuos_solidos_ibama/results_raw/",
         "destinaiton_compressed": "s3://jm2vtech/pos/residuos_solidos_ibama/results_compressed/"
     }
