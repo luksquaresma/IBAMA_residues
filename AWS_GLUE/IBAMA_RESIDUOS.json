@@ -1,0 +1,38 @@
+{
+  "name" : "IBAMA_RESIDUOS",
+  "description" : "",
+  "role" : "arn:aws:iam::280755897748:role/ETL_ELT",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-280755897748-sa-east-1/scripts/IBAMA_RESIDUOS.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://jm2vtech/pos/residuos_solidos_ibama/pipeline/glue/tmp/spark_ui/",
+    "--enable-job-insights" : "false",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://jm2vtech/pos/residuos_solidos_ibama/pipeline/glue/tmp/tmp/",
+    "--enable-auto-scaling" : "true"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "FLEX",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "IBAMA_residues",
+    "branch" : "main",
+    "folder" : "AWS_GLUE"
+  }
+}
