@@ -39,7 +39,7 @@
         "path_result_compressed": "./results_compressed/"
     },
     "AWS": {
-        "destination_raw": "s3://jm2vtech/pos/residuos_solidos_ibama/results_raw/",
-        "destinaiton_compressed": "s3://jm2vtech/pos/residuos_solidos_ibama/results_compressed/"
+        "destination_raw": "s3://jm2vtech/pos/residuos_solidos_ibama/src/raw/",
+        "destinaiton_compressed": "s3://jm2vtech/pos/residuos_solidos_ibama/src/compressed/"
     }
 }
