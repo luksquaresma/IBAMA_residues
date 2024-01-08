@@ -3,5 +3,6 @@ test.csv
 *results*
 *package*
 *.zip
+*backup*
 
 **__pycache__**

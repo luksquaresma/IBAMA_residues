@@ -14,8 +14,6 @@ with open("./config.json") as file:
 
 
 # = = = = = PREPARATION = = = = =
-
-
 # - - - - - Extraction
 # single job - extraction routine
 def extract_json_from_url(args):

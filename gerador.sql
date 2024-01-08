@@ -3,7 +3,7 @@ WITH
 splited AS (
     SELECT 
 
-    cast(regexp_replace(regexp_replace(quantidadegerada, '[.]', ''), ',', '.') as double) as quantidadegerada,
+    quantidadegerada, --cast(regexp_replace(regexp_replace(quantidadegerada, '[.]', ''), ',', '.') as double) as quantidadegerada,
     anogeracao,
     CASE 
         WHEN unidade="Litro"      AND classificacaoresiduo="Perigoso"       THEN 'Líquido Perigoso'
@@ -14,12 +14,12 @@ splited AS (
         WHEN unidade="Unidade" AND classificacaoresiduo="Não Perigoso"   THEN 'Outro Não Perigoso'
         ELSE 'Outro'
     END AS tipo,
-    split(lower(regexp_replace(detalhe, '[^a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛãñõÃÑÕçÇ°º]', ' ')), ' ') as detalhe,
     split(lower(regexp_replace(tiporesiduo, '[^a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛãñõÃÑÕçÇ°º]', ' ')), ' ') as tiporesiduo,
+    split(lower(regexp_replace(detalhe, '[^a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛãñõÃÑÕçÇ°º]', ' ')), ' ') as detalhe,
     split(lower(regexp_replace(categoriaatividade, '[^a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛãñõÃÑÕçÇ°º]', ' ')), ' ') as categoriaatividade,
     split(lower(regexp_replace(razaosocialgerador, '[^a-zA-Z0-9áéíóúÁÉÍÓÚàèìòùÀÈÌÒÙäëïöüÄËÏÖÜâêîôûÂÊÎÔÛãñõÃÑÕçÇ°º]', ' ')), ' ') as razaosocialgerador
 
-    FROM Gerador
+    FROM myDataSource
 ),
 
 exp_detalhe AS (
