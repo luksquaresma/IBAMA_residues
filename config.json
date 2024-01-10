@@ -2,7 +2,7 @@
     "terminal_log_macro": true,
     "terminal_log_micro": false,
     "steps_to_perform": {
-        "extraction": false,
+        "extraction": true,
         "compression": true,
         "send_raw_to_s3": true,
         "send_compressed_to_s3": true

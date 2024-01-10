@@ -66,7 +66,8 @@ def extract(config, log_terminal_macro=config["terminal_log_macro"], log_termina
     path_result_raw = config["local"]["path_result_raw"]
     prep_dir([get_dir_from_file_path(path_log), path_result_raw])
 
-    log(f"\n\nSTARTING ALL EXTRACTION PROCESSES", path_log, log_terminal=log_terminal_macro)
+    log(f"\n\n", path_log, log_terminal=log_terminal_macro)
+    log(f"STARTING ALL EXTRACTION PROCESSES", path_log, log_terminal=log_terminal_macro)
     with multiprocessing.Pool(processes=(max_proc if len(setup) > max_proc else len(setup))) as pool:
         with tqdm(total=len(setup), position=0, leave=True, disable=(not log_terminal_macro)) as global_pbar:
             for _ in pool.imap_unordered(
@@ -86,7 +87,7 @@ def compress_to_parquet(job, path_result_raw, path_result_compressed, path_log, 
 
     # raw df loading
     try:
-        log(f"{prefix} Started loading/reading.", path_log, log_terminal=log_terminal_micro)    
+        log(f"{prefix} Starting loading/reading.", path_log, log_terminal=log_terminal_micro)    
         df = pd.DataFrame.from_dict(read_raw_json(f'./{path_result_raw}{job["name"]}_{job["category"]}.json'))
         log(f"{prefix} Finished loading/reading.", path_log, log_terminal=log_terminal_micro)    
     except Exception as e:
@@ -104,7 +105,7 @@ def compress_to_parquet(job, path_result_raw, path_result_compressed, path_log, 
         if config["stop_if_error"]: raise
         
     # multiprocessing for numeric value fixes
-    log(f"\n{prefix} Starting compression processes", path_log, log_terminal=log_terminal_macro)
+    log(f"{prefix} Starting compression processes", path_log, log_terminal=log_terminal_macro)
     max_proc = multiprocessing.cpu_count()
     max_proc = config["max_proc"] if config["max_proc"] < max_proc else max_proc
     with multiprocessing.Pool(processes = (max_proc if len(chunks) > max_proc else len(chunks))) as pool:
@@ -141,12 +142,13 @@ def compress(config, log_terminal_macro=config["terminal_log_macro"], log_termin
             if f'{job["name"]}_{job["category"]}.json' in os.listdir(path_result_raw)
             ]
 
-        log(f"\n\nSTARTING COMPRESSION AND PRE-TREATMENT PROCEDURE", path_log, log_terminal=log_terminal_macro)
+        log(f"\n\n", path_log, log_terminal=log_terminal_macro)
+        log(f"STARTING COMPRESSION AND PRE-TREATMENT PROCEDURE", path_log, log_terminal=log_terminal_macro)
         for job in raw_available:
             prefix = f'JOB {job["name"]}, CATEGORY {job["category"]} -'
             try:
                 compress_to_parquet(job, path_result_raw, path_result_compressed, path_log, log_terminal_macro, log_terminal_micro)
-                log(f"{prefix} Finished file compression.", path_log, log_terminal=log_terminal_micro)    
+                log(f"{prefix} Finished file compression.\n", path_log, log_terminal=log_terminal_micro)    
             except Exception as e:
                 log(f"{prefix} Error compressing file:\n{e}", path_log, log_terminal=log_terminal_macro)
                 if config["stop_if_error"]: raise
@@ -169,7 +171,8 @@ def send_batch_to_s3(config, batch_directory, s3_directory_uri, log_terminal_mac
         if f.split(".")[0] == f'{job["name"]}_{job["category"]}'
     ]
 
-    log(f"\n\nSTARTING AWS S3 UPLOAD PROCESSES FOR {batch_directory}", path_log, log_terminal=log_terminal_macro)
+    log(f"\n\n", path_log, log_terminal=log_terminal_macro)
+    log(f"STARTING AWS S3 UPLOAD PROCESSES FOR {batch_directory}", path_log, log_terminal=log_terminal_macro)
     for (f, job) in tqdm(file_job_list, total=len(file_job_list), disable=(not log_terminal_macro)):
         prefix = f'JOB {job["name"]}, CATEGORY {job["category"]} -'
         try:
@@ -208,5 +211,10 @@ def perform(step):
 
 # = = = = = EXECUTION = = = = =
 for (step, to_perform) in config["steps_to_perform"].items():
+    log(f"STARTING ALL PROCESSES\n\n", config["local"]["path_log"], log_terminal=config["terminal_log_macro"])
     if to_perform: perform(step) # only works on ordered dictionaries (python >= 3.7)
+    log(f"FINISHED ALL PROCESSES\n\n", config["local"]["path_log"], log_terminal=config["terminal_log_macro"])
     
+
+
+ffmpeg -i dash_c.webm -t $(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dash_c.webm | awk '{print $1-10}') -filter_complex "[0:v]fps=30,scale=1080:-1:flags=lanczos,setpts=0.3*PTS[v];[v]palettegen" -y palette.png; ffmpeg -i dash_c.webm -t $(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dash_c.webm | awk '{print $1-10}') -i palette.png -filter_complex "[0:v]fps=30,scale=1080:-1:flags=lanczos,setpts=0.3*PTS[x];[x][1:v]paletteuse" -f gif t.gif
