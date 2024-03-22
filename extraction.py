@@ -215,6 +215,3 @@ for (step, to_perform) in config["steps_to_perform"].items():
     if to_perform: perform(step) # only works on ordered dictionaries (python >= 3.7)
     log(f"FINISHED ALL PROCESSES\n\n", config["local"]["path_log"], log_terminal=config["terminal_log_macro"])
     
-
-
-ffmpeg -i dash_c.webm -t $(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dash_c.webm | awk '{print $1-10}') -filter_complex "[0:v]fps=30,scale=1080:-1:flags=lanczos,setpts=0.3*PTS[v];[v]palettegen" -y palette.png; ffmpeg -i dash_c.webm -t $(ffprobe -v error -show_entries format=duration -of default=noprint_wrappers=1:nokey=1 dash_c.webm | awk '{print $1-10}') -i palette.png -filter_complex "[0:v]fps=30,scale=1080:-1:flags=lanczos,setpts=0.3*PTS[x];[x][1:v]paletteuse" -f gif t.gif
