@@ -10,7 +10,7 @@
     "stop_if_error": true,
     "max_proc": 8,
     "max_df_size_magnitude": 5,
-    "max_get_trys": 5,
+    "max_get_tries": 20,
     "raw_source": [
         {
             "name": "gerador",

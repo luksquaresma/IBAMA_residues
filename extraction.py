@@ -17,41 +17,44 @@ with open("./config.json") as file:
 # - - - - - Extraction
 # single job - extraction routine
 def extract_json_from_url(args):
-    (job, trys, path_log, path_result_raw, log_terminal_macro, log_terminal_micro) = args
-
-    result_content = None
-    atempts = 0
+    (job, tries, path_log, path_result_raw, log_terminal_macro, log_terminal_micro) = args
     prefix = f'JOB {job["name"]}, CATEGORY {job["category"]} -'
+    unfinshed = True
 
-    while atempts < trys and result_content == None:
+    def json_save(result):
         try:
-            response = requests.request(method="GET", url=job["url"], verify=False, timeout=1e6)     
+            with open(f'{path_result_raw}{job["name"]}_{job["category"]}.json', 'w', encoding='utf-8') as file:
+                json.dump(result, file, ensure_ascii=False, indent=4)
+            log(f"{prefix} Finished job.", path_log, log_terminal=log_terminal_micro)
+            unfinshed = False
+        except Exception as e:
+            log(f"{prefix} Error saving JSON file:\n{e}", path_log, log_terminal=log_terminal_macro)
+            if config["stop_if_error"]: raise e
+
+    def response_parse(response):
+        try:
+            result = response.json()
+            if result:
+                json_save(result)
+            else:
+                log(f"{prefix} Empty JSON file.", path_log, log_terminal=log_terminal_macro)
+        except Exception as e:
+            log(f"{prefix} Error parsing JSON results:\n{e}", path_log, log_terminal=log_terminal_macro)
+            if config["stop_if_error"]: raise e
+
+    while tries > 0 and unfinshed:
+        tries -= 1
+        try:
+            response = requests.request(method="GET", url=job["url"], verify=False, timeout=1e6)
             if response.status_code == 200:
-                try:
-                    result = response.json()
-                    if result != "":
-                        try:
-                            with open(f'{path_result_raw}{job["name"]}_{job["category"]}.json', 'w', encoding='utf-8') as file:
-                                json.dump(
-                                    result, 
-                                    file,
-                                    ensure_ascii=False, 
-                                    indent=4
-                                    )
-                            log(f"{prefix} Finished job.", path_log, log_terminal=log_terminal_micro)    
-                            break
-                        except Exception as e:
-                            log(f"{prefix} Error saving JSON file:\n{e}", path_log, log_terminal=log_terminal_macro)
-                            if config["stop_if_error"]: raise
-                    else:
-                        log(f"{prefix} Empty JSON file.", path_log, log_terminal=log_terminal_macro)
-                except Exception as e:
-                    log(f"{prefix} Error parsing JSON results:\n{e}", path_log, log_terminal=log_terminal_macro)
-                    if config["stop_if_error"]: raise
+                response_parse(response)
+                return
         except Exception as e:
             log(f"{prefix} Error on performing request:\n{e}", path_log, log_terminal=log_terminal_macro)
-            if config["stop_if_error"]: raise
-        atempts += 1
+            if config["stop_if_error"]: raise e
+    
+    if unfinshed:
+        log(f"{prefix} Exceeded maximum request number", path_log, log_terminal=log_terminal_macro)
 
 # interface - multiprocessing extraction
 def extract(config, log_terminal_macro=config["terminal_log_macro"], log_terminal_micro=config["terminal_log_micro"]):
@@ -60,19 +63,18 @@ def extract(config, log_terminal_macro=config["terminal_log_macro"], log_termina
 
     max_proc = multiprocessing.cpu_count()
     max_proc = config["max_proc"] if config["max_proc"] < max_proc else max_proc
-    max_trys = config["max_get_trys"]
+    max_tries = config["max_get_tries"]
     
     path_log = config["local"]["path_log"]
     path_result_raw = config["local"]["path_result_raw"]
     prep_dir([get_dir_from_file_path(path_log), path_result_raw])
 
-    log(f"\n\n", path_log, log_terminal=log_terminal_macro)
     log(f"STARTING ALL EXTRACTION PROCESSES", path_log, log_terminal=log_terminal_macro)
     with multiprocessing.Pool(processes=(max_proc if len(setup) > max_proc else len(setup))) as pool:
         with tqdm(total=len(setup), position=0, leave=True, disable=(not log_terminal_macro)) as global_pbar:
             for _ in pool.imap_unordered(
                 extract_json_from_url,
-                [(s, max_trys, path_log, path_result_raw, log_terminal_macro, log_terminal_micro) for s in setup],
+                [(s, max_tries, path_log, path_result_raw, log_terminal_macro, log_terminal_micro) for s in setup],
                 chunksize=1
                 ):
                 global_pbar.update()
@@ -117,7 +119,7 @@ def compress_to_parquet(job, path_result_raw, path_result_compressed, path_log, 
                 )
             )
     results = pd.concat(results)
-    log(f"{prefix} Finished compression processes\n", path_log, log_terminal=log_terminal_micro)
+    log(f"{prefix} Finished compression processes", path_log, log_terminal=log_terminal_micro)
     
     # df sorting and saving
     try:
@@ -142,13 +144,12 @@ def compress(config, log_terminal_macro=config["terminal_log_macro"], log_termin
             if f'{job["name"]}_{job["category"]}.json' in os.listdir(path_result_raw)
             ]
 
-        log(f"\n\n", path_log, log_terminal=log_terminal_macro)
         log(f"STARTING COMPRESSION AND PRE-TREATMENT PROCEDURE", path_log, log_terminal=log_terminal_macro)
         for job in raw_available:
             prefix = f'JOB {job["name"]}, CATEGORY {job["category"]} -'
             try:
                 compress_to_parquet(job, path_result_raw, path_result_compressed, path_log, log_terminal_macro, log_terminal_micro)
-                log(f"{prefix} Finished file compression.\n", path_log, log_terminal=log_terminal_micro)    
+                log(f"{prefix} Finished file compression.", path_log, log_terminal=log_terminal_micro)    
             except Exception as e:
                 log(f"{prefix} Error compressing file:\n{e}", path_log, log_terminal=log_terminal_macro)
                 if config["stop_if_error"]: raise
@@ -171,7 +172,6 @@ def send_batch_to_s3(config, batch_directory, s3_directory_uri, log_terminal_mac
         if f.split(".")[0] == f'{job["name"]}_{job["category"]}'
     ]
 
-    log(f"\n\n", path_log, log_terminal=log_terminal_macro)
     log(f"STARTING AWS S3 UPLOAD PROCESSES FOR {batch_directory}", path_log, log_terminal=log_terminal_macro)
     for (f, job) in tqdm(file_job_list, total=len(file_job_list), disable=(not log_terminal_macro)):
         prefix = f'JOB {job["name"]}, CATEGORY {job["category"]} -'
@@ -211,7 +211,5 @@ def perform(step):
 
 # = = = = = EXECUTION = = = = =
 for (step, to_perform) in config["steps_to_perform"].items():
-    log(f"STARTING ALL PROCESSES\n\n", config["local"]["path_log"], log_terminal=config["terminal_log_macro"])
     if to_perform: perform(step) # only works on ordered dictionaries (python >= 3.7)
-    log(f"FINISHED ALL PROCESSES\n\n", config["local"]["path_log"], log_terminal=config["terminal_log_macro"])
     
