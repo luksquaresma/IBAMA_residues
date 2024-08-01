@@ -1,4 +1,6 @@
 test.csv
+**.obsidian
+*.ipynb
 
 *results*
 *package*
