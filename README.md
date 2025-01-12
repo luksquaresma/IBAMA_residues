@@ -18,11 +18,11 @@ graph LR
 	subgraph S3
 		raw[(Raw)]
 		cmp[(Compressed)]
-		std[(Glue\nStandardized)]
+		std[(Glue<br>Standardized)]
 	end
 	
-	i[(IBAMA\nDB)]
-	--> a{{API\nIBAMA}}
+	i[(IBAMA<br>DB)]
+	--> a{{API<br>IBAMA}}
 	--> e[[Extrator]]
 	-.-> raw
 	e --> cmp
@@ -34,7 +34,7 @@ graph LR
 	g[[Glue]]
 	--> std
 	g
-	-.-> gc[(Glue\nCatalog)] 
+	-.-> gc[(Glue<br>Catalog)] 
 	
 	gc & std
 	--> at[[Athena]]
